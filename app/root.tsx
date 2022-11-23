@@ -43,13 +43,21 @@ export const links: LinksFunction = () => {
       type: "image/x-icon",
       href: "/favicon.ico",
     },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap",
+    },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Lato&display=swap",
+    },
   ];
 };
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "check.go.gov.sg",
-  viewport: "width=device-width,initial-scale=1",
+  viewport: "width=device-width,initial-scale=1,user-scalable=0",
 });
 
 export default function App() {
@@ -57,6 +65,7 @@ export default function App() {
     <html lang="en">
       <head>
         <Meta />
+        <meta httpEquiv="Content-Language" content="en" />
         <Links />
       </head>
       <body>
