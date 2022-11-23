@@ -1,9 +1,9 @@
-// import { GovtMasthead } from "@opengovsg/design-system-react";
+import { GovtMasthead, RestrictedFooter } from "@opengovsg/design-system-react";
 
 export default function Index() {
   return (
     <>
-      {/*<GovtMasthead />*/}
+      <GovtMasthead />
       <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
         <h1>Welcome to Remix</h1>
         <ul>
@@ -31,7 +31,11 @@ export default function Index() {
             </a>
           </li>
         </ul>
-        {/*<RestrictedFooter />*/}
+        <RestrictedFooter
+          appLink="https://check.go.gov.sg"
+          appName="CheckGoGovSG"
+          tagline="Check the authenticity of official communications"
+        />
       </div>
     </>
   );

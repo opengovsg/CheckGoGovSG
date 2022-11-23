@@ -12,19 +12,7 @@ module.exports = {
       "warn",
       { argsIgnorePattern: "^_", ignoreRestSiblings: true },
     ],
-    "@typescript-eslint/member-delimiter-style": [
-      "error",
-      {
-        multiline: {
-          delimiter: "none",
-          requireLast: true,
-        },
-        singleline: {
-          delimiter: "semi",
-          requireLast: false,
-        },
-      },
-    ],
+    "@typescript-eslint/member-delimiter-style": ["error"],
     "@typescript-eslint/no-explicit-any": "warn",
     "no-console": "warn",
     "simple-import-sort/imports": [

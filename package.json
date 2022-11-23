@@ -6,12 +6,18 @@
     "dev": "remix dev"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.4.1",
+    "@emotion/cache": "^11.10.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.5",
     "@opengovsg/design-system-react": "^0.0.12",
     "@remix-run/node": "^1.7.6",
     "@remix-run/react": "^1.7.6",
     "@remix-run/vercel": "^1.7.6",
     "@vercel/analytics": "^0.1.5",
     "@vercel/node": "^2.6.3",
+    "framer-motion": "^6.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

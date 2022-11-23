@@ -1,3 +1,6 @@
+import React, { useContext, useEffect } from "react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { withEmotionCache } from "@emotion/react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
@@ -8,6 +11,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { Analytics } from "@vercel/analytics/react";
+
+import { ClientStyleContext, ServerStyleContext } from "./context";
 
 export const links: LinksFunction = () => {
   return [
@@ -60,21 +65,61 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1,user-scalable=0",
 });
 
+interface DocumentProps {
+  children: React.ReactNode;
+}
+
+const Document = withEmotionCache(
+  ({ children }: DocumentProps, emotionCache) => {
+    const serverStyleData = useContext(ServerStyleContext);
+    const clientStyleData = useContext(ClientStyleContext);
+
+    // Only executed on client
+    useEffect(() => {
+      // re-link sheet container
+      emotionCache.sheet.container = document.head;
+      // re-inject tags
+      const tags = emotionCache.sheet.tags;
+      emotionCache.sheet.flush();
+      tags.forEach((tag) => {
+        (emotionCache.sheet as any)._insertTag(tag);
+      });
+      // reset cache to reapply global styles
+      clientStyleData?.reset();
+    }, []);
+
+    return (
+      <html lang="en">
+        <head>
+          <Meta />
+          <Links />
+          <meta httpEquiv="Content-Language" content="en" />
+          {serverStyleData?.map(({ key, ids, css }) => (
+            <style
+              key={key}
+              data-emotion={`${key} ${ids.join(" ")}`}
+              dangerouslySetInnerHTML={{ __html: css }}
+            />
+          ))}
+        </head>
+        <body>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+          <Analytics />
+        </body>
+      </html>
+    );
+  },
+);
+
 export default function App() {
   return (
-    <html lang="en">
-      <head>
-        <Meta />
-        <meta httpEquiv="Content-Language" content="en" />
-        <Links />
-      </head>
-      <body>
+    <Document>
+      <ChakraProvider>
         <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-        <Analytics />
-      </body>
-    </html>
+      </ChakraProvider>
+    </Document>
   );
 }
