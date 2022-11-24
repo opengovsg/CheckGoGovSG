@@ -1,0 +1,12 @@
+/* add other colours for other pages or rename from notfound
+meant to be general colours for the site */
+
+:root {
+  --text-color: #384a51;
+  --text-emphasize-color: #456682;
+  --banner-color: #f9f9f9;
+  --button-text-color: #ffffff;
+  --button-pine-color: #456682;
+  --button-seaweed-color: #384a51;
+  --divider-grey-color: #e8e8e8;
+}
