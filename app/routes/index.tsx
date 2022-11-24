@@ -1,3 +1,4 @@
+import { Heading } from "@chakra-ui/react";
 import { GovtMasthead, RestrictedFooter } from "@opengovsg/design-system-react";
 
 export default function Index() {
@@ -5,7 +6,7 @@ export default function Index() {
     <>
       <GovtMasthead />
       <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-        <h1>Welcome to Remix</h1>
+        <Heading>Welcome to Remix</Heading>
         <ul>
           <li>
             <a
@@ -33,8 +34,11 @@ export default function Index() {
         </ul>
         <RestrictedFooter
           appLink="https://check.go.gov.sg"
-          appName="CheckGoGovSG"
-          tagline="Check the authenticity of official communications"
+          appName="Check.go.gov.sg"
+          containerProps={{
+            bg: "#000",
+          }}
+          textColorScheme="white"
         />
       </div>
     </>

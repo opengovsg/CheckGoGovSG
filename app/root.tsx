@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { withEmotionCache } from "@emotion/react";
+import { ThemeProvider } from "@opengovsg/design-system-react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
@@ -13,6 +14,7 @@ import {
 import { Analytics } from "@vercel/analytics/react";
 
 import { ClientStyleContext, ServerStyleContext } from "./context";
+import { theme } from "./theme";
 
 export const links: LinksFunction = () => {
   return [
@@ -117,8 +119,10 @@ const Document = withEmotionCache(
 export default function App() {
   return (
     <Document>
-      <ChakraProvider>
-        <Outlet />
+      <ChakraProvider theme={theme} resetCSS>
+        <ThemeProvider>
+          <Outlet />
+        </ThemeProvider>
       </ChakraProvider>
     </Document>
   );
