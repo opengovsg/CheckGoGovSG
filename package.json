@@ -18,6 +18,7 @@
     "@vercel/analytics": "^0.1.5",
     "@vercel/node": "^2.6.3",
     "framer-motion": "^6.5.1",
+    "ramda": "^0.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -25,6 +26,7 @@
     "@remix-run/dev": "^1.7.6",
     "@remix-run/eslint-config": "^1.7.6",
     "@remix-run/serve": "^1.7.6",
+    "@types/ramda": "^0.28.20",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.44.0",

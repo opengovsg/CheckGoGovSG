@@ -1,45 +1,21 @@
 import { extendTheme } from "@chakra-ui/react";
+import { theme as ogpDesignSystemDefaultTheme } from "@opengovsg/design-system-react";
+import { mergeDeepRight } from "ramda";
 
-import { colors } from "./foundations/colors";
-import { textStyles } from "./textStyles";
-
-export const theme = extendTheme({
-  styles: {
-    global: {
-      "*": {
-        margin: 0,
-      },
-      html: {
-        height: "100%",
-      },
-      "th, td": {
-        padding: 0,
-      },
-      body: {
-        height: "100%",
-        fontFeatureSettings: "'tnum' on, 'cv05' on",
-        WebkitFontSmoothing: "antialiased",
-      },
-      "#root, #__next": {
-        isolation: "isolate",
-        height: "inherit",
-      },
-      /**
-       * This will hide the focus indicator if the element receives focus via
-       * the mouse,but it will still show up on keyboard focus.
-       * Part of the steps needed to get focus-visible working.
-       * See https://www.npmjs.com/package/focus-visible#2-update-your-css.
-       */
-      ".js-focus-visible :focus:not([data-focus-visible-added])": {
-        outline: "none",
-      },
-      ".focus-visible": { outline: "none" },
+export const theme = extendTheme(
+  mergeDeepRight(ogpDesignSystemDefaultTheme, {
+    fonts: {
+      heading: `'IBM Plex Sans', sans-serif`,
+      body: `'IBM Plex Sans', sans-serif`,
     },
-  },
-  colors,
-  textStyles,
-  fonts: {
-    heading: `'IBM Plex Sans', sans-serif`,
-    body: `'IBM Plex Sans', sans-serif`,
-  },
-});
+    semanticTokens: {
+      colors: {
+        text: {
+          default: "#384a51",
+          emphasis: "#456682",
+        },
+        // TODO later
+      },
+    },
+  }),
+);

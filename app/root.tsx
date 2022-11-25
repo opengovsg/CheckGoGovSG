@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import { ChakraProvider } from "@chakra-ui/react";
 import { withEmotionCache } from "@emotion/react";
 import { ThemeProvider } from "@opengovsg/design-system-react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
@@ -119,11 +118,9 @@ const Document = withEmotionCache(
 export default function App() {
   return (
     <Document>
-      <ChakraProvider theme={theme} resetCSS>
-        <ThemeProvider>
-          <Outlet />
-        </ThemeProvider>
-      </ChakraProvider>
+      <ThemeProvider theme={theme} resetCSS>
+        <Outlet />
+      </ThemeProvider>
     </Document>
   );
 }
