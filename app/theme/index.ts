@@ -4,27 +4,19 @@ import { mergeDeepRight } from "ramda";
 
 import { Button } from "./components/Button";
 
+import { breakpoints } from "~/theme/foundations/breakpoints";
+import { colors } from "~/theme/foundations/colors";
+import { fonts } from "~/theme/foundations/fonts";
+
 export const theme = extendTheme(
   mergeDeepRight(ogpDesignSystemDefaultTheme, {
-    fonts: {
-      heading: `'IBM Plex Sans', sans-serif`,
-      body: `'IBM Plex Sans', sans-serif`,
-    },
+    fonts,
     semanticTokens: {
-      colors: {
-        text: {
-          default: "#384a51",
-          emphasis: "#456682",
-        },
-        // primaryButtonBg: "#456682",
-        // primaryButtonHoverBg: "#384a51",
-        // primaryButtonColor: "#ffffff",
-        reverseButtonColor: "#466682",
-        reverseButtonHoverBg: "#f5f5f5",
-      },
+      colors,
     },
     components: {
       Button,
     },
+    breakpoints,
   }),
 );
