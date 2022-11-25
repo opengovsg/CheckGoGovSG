@@ -1,12 +1,17 @@
-import { Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import { GovtMasthead, RestrictedFooter } from "@opengovsg/design-system-react";
+
+import { Button } from "~/components/Button";
 
 export default function Index() {
   return (
-    <>
+    <Flex direction="column" minH="100vh">
       <GovtMasthead />
-      <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-        <Heading>Welcome to Remix</Heading>
+      <Button width="fit-content" colorScheme="secondary" variant="reverse">
+        Contribute
+      </Button>
+      <Heading>Welcome to Remix</Heading>
+      <Box flex="1">
         <ul>
           <li>
             <a
@@ -32,15 +37,15 @@ export default function Index() {
             </a>
           </li>
         </ul>
-        <RestrictedFooter
-          appLink="https://check.go.gov.sg"
-          appName="Check.go.gov.sg"
-          containerProps={{
-            bg: "#000",
-          }}
-          textColorScheme="white"
-        />
-      </div>
-    </>
+      </Box>
+      <RestrictedFooter
+        appLink="https://check.go.gov.sg"
+        appName="Check.go.gov.sg"
+        containerProps={{
+          bg: "#000",
+        }}
+        textColorScheme="white"
+      />
+    </Flex>
   );
 }
