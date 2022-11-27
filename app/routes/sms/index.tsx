@@ -3,8 +3,7 @@ import { redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 export const loader: LoaderFunction = async () => {
-  // 302 because this redirect is temporary and might change in the future
-  return redirect("https://go.gov.sg", { status: 302 });
+  return redirect("/");
 };
 
 export default function SmsIndex() {
