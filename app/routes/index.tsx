@@ -7,7 +7,7 @@ import { useLoaderData } from "@remix-run/react";
 // import { LandingSection } from "~/components/Landing/LandingSection";
 
 export const loader: LoaderFunction = async () => {
-  return redirect("https://go.gov.sg", { status: 302 });
+  return redirect("https://go.gov.sg");
 };
 
 export default function Index() {
