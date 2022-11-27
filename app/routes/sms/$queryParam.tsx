@@ -85,12 +85,13 @@ export default function SmsQueryParamDetailsPage() {
     isStaging,
   } = useLoaderData<DisplayDataFrontend>();
   // process timestamp into relative time
-  const relativeTime = timeDifference(new Date(timestamp).getTime());
+  const relativeTimeAgo = timeDifference(new Date(timestamp).getTime());
   return (
     <Flex
       alignItems="center"
       flexDir="column"
       px={{ base: "1.5rem", md: "5.5rem", lg: "9.25rem" }}
+      mb="2rem"
     >
       <Text
         as="h1"
@@ -107,8 +108,8 @@ export default function SmsQueryParamDetailsPage() {
       >
         The phone number <strong>{recipientId}</strong> received a {messageType}{" "}
         from <strong>{agencyName}</strong> with a Sender ID of{" "}
-        <strong>{agencySenderId}</strong> at around{" "}
-        <strong>{relativeTime} ago</strong>.
+        <strong>{agencySenderId}</strong> around{" "}
+        <strong>{relativeTimeAgo}</strong>.
       </Text>
       <Text
         mt="1.5rem"
@@ -130,6 +131,7 @@ export default function SmsQueryParamDetailsPage() {
           <i>This is a demo verification message.</i>
         </Text>
       )}
+      <Img src={CheckGraphic} alt="Checking" mt="2rem" />
     </Flex>
   );
 }
@@ -144,6 +146,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
       alignItems="center"
       flexDir="column"
       px={{ base: "1.5rem", md: "5.5rem", lg: "9.25rem" }}
+      mb="2rem"
     >
       <Text
         as="h1"
@@ -165,7 +168,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
         with the following error message: <strong>{error.message}</strong> and
         we will look into it.
       </Text>
-      <Img src={CheckGraphic} alt="Checking" mt="2rem" mb="2rem" />
+      <Img src={CheckGraphic} alt="Checking" mt="2rem" />
     </Flex>
   );
 }
@@ -179,6 +182,7 @@ export function CatchBoundary() {
         alignItems="center"
         flexDir="column"
         px={{ base: "1.5rem", md: "5.5rem", lg: "9.25rem" }}
+        mb="2rem"
       >
         <Text
           as="h1"
@@ -202,7 +206,7 @@ export function CatchBoundary() {
             <mark>check.go.gov.sg/</mark>
           </code>
         </Text>
-        <Img src={NotFoundGraphic} alt="Not found" mt="2rem" mb="2rem" />
+        <Img src={NotFoundGraphic} alt="Not found" mt="2rem" />
       </Flex>
     );
   }
