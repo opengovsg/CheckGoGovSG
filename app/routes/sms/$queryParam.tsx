@@ -106,10 +106,31 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        The phone number <strong>{recipientId}</strong> received a {messageType}{" "}
-        from <strong>{agencyName}</strong> with a Sender ID of{" "}
-        <strong>{agencySenderId}</strong> around{" "}
-        <strong>{relativeTimeAgo}</strong>.
+        Recipient: <strong>{recipientId}</strong>
+      </Text>
+      <Text
+        mt="1.5rem"
+        textStyle="body-1"
+        color="textDefault"
+        width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
+      >
+        SMS Sender: <strong>{agencySenderId}</strong>
+      </Text>
+      <Text
+        mt="1.5rem"
+        textStyle="body-1"
+        color="textDefault"
+        width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
+      >
+        Agency: <strong>{agencyName}</strong>
+      </Text>
+      <Text
+        mt="1.5rem"
+        textStyle="body-1"
+        color="textDefault"
+        width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
+      >
+        Sent time: <strong>{relativeTimeAgo}</strong>
       </Text>
       <Text
         mt="1.5rem"
@@ -119,12 +140,6 @@ export default function SmsQueryParamDetailsPage() {
       >
         Please see the original {messageType} for more details. If you are not
         the intended recipient, please ignore this.
-      </Text>
-      <Text mt="1.5rem" textStyle="subhead-1" color="textEmphasis">
-        Make sure the current URL starts with{" "}
-        <code>
-          <mark>check.go.gov.sg/</mark>
-        </code>
       </Text>
       {isStaging && (
         <Text mt="1.5rem" textStyle="subhead-1" color="red">
@@ -163,7 +178,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
       >
         Something has gone wrong. Please send an email to{" "}
         <u>
-          <a href="mailto:zixiang@open.gov.sg">zixiang@open.gov.sg</a>
+          <a href="mailto:checkwho@open.gov.sg">checkwho@open.gov.sg</a>
         </u>{" "}
         with the following error message: <strong>{error.message}</strong> and
         we will look into it.
@@ -198,13 +213,8 @@ export function CatchBoundary() {
           width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
         >
           The link you are trying to access is not valid. This could because the
-          link has expired or is entered incorrectly.
-        </Text>
-        <Text mt="1.5rem" textStyle="subhead-1" color="textEmphasis">
-          Make sure the current URL starts with{" "}
-          <code>
-            <mark>check.go.gov.sg/</mark>
-          </code>
+          link has <strong>expired</strong> or has been{" "}
+          <strong>entered incorrectly</strong>.
         </Text>
         <Img src={NotFoundGraphic} alt="Not found" mt="2rem" />
       </Flex>
