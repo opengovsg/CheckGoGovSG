@@ -97,7 +97,7 @@ const processDisplayData = (displayData: DisplayData): DisplayDataFrontend => {
     minute: "numeric",
   });
 
-  // formatted phone number
+  // number of the format 8123 4567
   const formattedRecipientPhoneNumber = `${recipientId.slice(
     0,
     4,
@@ -151,7 +151,8 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        <strong>Is your SMS from this sender?</strong> {agencySenderId}
+        <strong>Is your SMS from this sender?</strong>{" "}
+        <mark>{agencySenderId}</mark>
       </Text>
       <Text
         mt="1.5rem"
@@ -167,8 +168,7 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        <strong>Your SMS is sent:</strong> <mark>{relativeTimeAgo}</mark> (
-        {timestampSgt})
+        <strong>Your SMS is sent:</strong> {relativeTimeAgo} ({timestampSgt})
       </Text>
       <Text
         mt="1.5rem"
@@ -176,8 +176,9 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        Please see the original {messageType} for more details. If you are not
-        the intended recipient, please ignore this.
+        If you receive this link but the information above does not match,
+        please ignore the {messageType} as you might be the victim of a scamming
+        attempt.
       </Text>
       {isStaging && (
         <Text mt="1.5rem" textStyle="subhead-1" color="red">
