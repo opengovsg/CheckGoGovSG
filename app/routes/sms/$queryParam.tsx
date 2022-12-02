@@ -176,9 +176,9 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        If you receive this link but the information above does not match,
-        please ignore the {messageType} as you might be the victim of a scamming
-        attempt.
+        If you received this link but the information above does not match,
+        please ignore the {messageType} as you might be the target of an
+        attempted scam.
       </Text>
       {isStaging && (
         <Text mt="1.5rem" textStyle="subhead-1" color="red">
