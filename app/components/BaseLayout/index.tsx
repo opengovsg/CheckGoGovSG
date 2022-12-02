@@ -15,7 +15,7 @@ export const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
       <Box flex={1}>{children}</Box>
       <RestrictedFooter
         appLink="https://check.go.gov.sg"
-        appName="check.go.gov.sg"
+        appName=""
         containerProps={{
           bg: "#000",
         }}

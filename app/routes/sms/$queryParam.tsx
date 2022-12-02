@@ -55,7 +55,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (prodResponse.ok) {
     const displayData: DisplayData = await prodResponse.json();
     verifyMessageType(displayData);
-    return json({ ...displayData }, { headers });
+    return json({ ...processDisplayData(displayData) }, { headers });
   }
   // if not found on prod, check staging
   if (stagingPromise.status === "rejected") {
@@ -65,27 +65,63 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (stagingResponse.ok) {
     const displayData: DisplayData = await stagingResponse.json();
     verifyMessageType(displayData);
-    return json({ ...displayData, isStaging: true }, { headers });
+    return json(
+      { ...processDisplayData(displayData), isStaging: true },
+      { headers },
+    );
   }
   // if not found on both prod and staging returns 404
   throw new Response("Not found", { status: 404 });
 };
 
-interface DisplayDataFrontend extends DisplayData {
+interface DisplayDataFrontend
+  extends Omit<DisplayData, "timestamp" | "recipientId"> {
+  relativeTimeAgo: string;
+  timestampSgt: string;
+  formattedRecipientPhoneNumber: string;
   isStaging?: boolean;
 }
+
+const processDisplayData = (displayData: DisplayData): DisplayDataFrontend => {
+  const { timestamp, recipientId, agencySenderId, messageType, agencyName } =
+    displayData;
+  // process timestamp into relative time
+  const relativeTimeAgo = timeDifference(new Date(timestamp).getTime());
+  // process timestamp into SGT time, don't show seconds
+  const timestampSgt = new Date(timestamp).toLocaleString("en-SG", {
+    timeZone: "Asia/Singapore",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  // number of the format 8123 4567
+  const formattedRecipientPhoneNumber = `${recipientId.slice(
+    0,
+    4,
+  )} ${recipientId.slice(4)}`;
+  return {
+    messageType,
+    agencyName,
+    agencySenderId,
+    relativeTimeAgo,
+    timestampSgt,
+    formattedRecipientPhoneNumber,
+  };
+};
 
 export default function SmsQueryParamDetailsPage() {
   const {
     agencyName,
     agencySenderId,
     messageType,
-    recipientId,
-    timestamp,
+    formattedRecipientPhoneNumber,
+    relativeTimeAgo,
+    timestampSgt,
     isStaging,
   } = useLoaderData<DisplayDataFrontend>();
-  // process timestamp into relative time
-  const relativeTimeAgo = timeDifference(new Date(timestamp).getTime());
   return (
     <Flex
       alignItems="center"
@@ -106,10 +142,8 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        The phone number <strong>{recipientId}</strong> received a {messageType}{" "}
-        from <strong>{agencyName}</strong> with a Sender ID of{" "}
-        <strong>{agencySenderId}</strong> around{" "}
-        <strong>{relativeTimeAgo}</strong>.
+        <strong>Is this your phone number?</strong>{" "}
+        <mark>{formattedRecipientPhoneNumber}</mark>
       </Text>
       <Text
         mt="1.5rem"
@@ -117,14 +151,34 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        Please see the original {messageType} for more details. If you are not
-        the intended recipient, please ignore this.
+        <strong>Is your SMS from this sender?</strong>{" "}
+        <mark>{agencySenderId}</mark>
       </Text>
-      <Text mt="1.5rem" textStyle="subhead-1" color="textEmphasis">
-        Make sure the current URL starts with{" "}
-        <code>
-          <mark>check.go.gov.sg/</mark>
-        </code>
+      <Text
+        mt="1.5rem"
+        textStyle="body-1"
+        color="textDefault"
+        width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
+      >
+        <strong>Your SMS is from:</strong> {agencyName}
+      </Text>
+      <Text
+        mt="1.5rem"
+        textStyle="body-1"
+        color="textDefault"
+        width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
+      >
+        <strong>Your SMS is sent:</strong> {relativeTimeAgo} ({timestampSgt})
+      </Text>
+      <Text
+        mt="1.5rem"
+        textStyle="body-1"
+        color="textDefault"
+        width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
+      >
+        If you received this link but the information above does not match,
+        please ignore the {messageType} as you might be the target of an
+        attempted scam.
       </Text>
       {isStaging && (
         <Text mt="1.5rem" textStyle="subhead-1" color="red">
@@ -163,7 +217,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
       >
         Something has gone wrong. Please send an email to{" "}
         <u>
-          <a href="mailto:zixiang@open.gov.sg">zixiang@open.gov.sg</a>
+          <a href="mailto:checkwho@open.gov.sg">checkwho@open.gov.sg</a>
         </u>{" "}
         with the following error message: <strong>{error.message}</strong> and
         we will look into it.
@@ -198,13 +252,8 @@ export function CatchBoundary() {
           width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
         >
           The link you are trying to access is not valid. This could because the
-          link has expired or is entered incorrectly.
-        </Text>
-        <Text mt="1.5rem" textStyle="subhead-1" color="textEmphasis">
-          Make sure the current URL starts with{" "}
-          <code>
-            <mark>check.go.gov.sg/</mark>
-          </code>
+          link has <strong>expired</strong> or has been{" "}
+          <strong>entered incorrectly</strong>.
         </Text>
         <Img src={NotFoundGraphic} alt="Not found" mt="2rem" />
       </Flex>
