@@ -160,7 +160,7 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        <strong>Your SMS is from:</strong> {agencyName}
+        Your SMS is from <strong>{agencyName}</strong>
       </Text>
       <Text
         mt="1.5rem"
@@ -168,7 +168,7 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        <strong>Your SMS is sent:</strong> {relativeTimeAgo} ({timestampSgt})
+        Your SMS was sent <strong>{relativeTimeAgo}</strong> ({timestampSgt})
       </Text>
       <Text
         mt="1.5rem"
@@ -177,8 +177,7 @@ export default function SmsQueryParamDetailsPage() {
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
         If you received this link but the information above does not match,
-        please ignore the {messageType} as you might be the target of an
-        attempted scam.
+        please ignore the {messageType} as it may be an attempted scam.
       </Text>
       {isStaging && (
         <Text mt="1.5rem" textStyle="subhead-1" color="red">
