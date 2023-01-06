@@ -142,8 +142,8 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        <strong>Is this your phone number?</strong>{" "}
-        <mark>{formattedRecipientPhoneNumber}</mark>
+        Is this your phone number?{" "}
+        <strong>{formattedRecipientPhoneNumber}</strong>
       </Text>
       <Text
         mt="1.5rem"
@@ -151,8 +151,7 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        <strong>Is your SMS from this sender?</strong>{" "}
-        <mark>{agencySenderId}</mark>
+        Is your SMS from this sender? <strong>{agencySenderId}</strong>
       </Text>
       <Text
         mt="1.5rem"
