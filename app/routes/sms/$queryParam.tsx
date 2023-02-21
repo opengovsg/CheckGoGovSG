@@ -77,7 +77,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 interface DisplayDataFrontend
   extends Omit<DisplayData, "timestamp" | "recipientId"> {
   relativeTimeAgo: string;
-  timestampSgt: string;
+  timestampTz: string;
   formattedRecipientPhoneNumber: string;
   isStaging?: boolean;
 }
@@ -87,9 +87,8 @@ const processDisplayData = (displayData: DisplayData): DisplayDataFrontend => {
     displayData;
   // process timestamp into relative time
   const relativeTimeAgo = timeDifference(new Date(timestamp).getTime());
-  // process timestamp into SGT time, don't show seconds
-  const timestampSgt = new Date(timestamp).toLocaleString("en-SG", {
-    timeZone: "Asia/Singapore",
+  // format timestamp, don't show second, use user's timezone (by leaving out timezone option)
+  const timestampTz = new Date(timestamp).toLocaleString("en-SG", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -107,7 +106,7 @@ const processDisplayData = (displayData: DisplayData): DisplayDataFrontend => {
     agencyName,
     agencySenderId,
     relativeTimeAgo,
-    timestampSgt,
+    timestampTz,
     formattedRecipientPhoneNumber,
   };
 };
@@ -119,7 +118,7 @@ export default function SmsQueryParamDetailsPage() {
     messageType,
     formattedRecipientPhoneNumber,
     relativeTimeAgo,
-    timestampSgt,
+    timestampTz,
     isStaging,
   } = useLoaderData<DisplayDataFrontend>();
   return (
@@ -167,7 +166,7 @@ export default function SmsQueryParamDetailsPage() {
         color="textDefault"
         width={{ base: "100%", md: "80%", lg: "60%", xl: "50%" }}
       >
-        Your SMS was sent <strong>{relativeTimeAgo}</strong> ({timestampSgt})
+        Your SMS was sent <strong>{relativeTimeAgo}</strong> ({timestampTz})
       </Text>
       <Text
         mt="1.5rem"
