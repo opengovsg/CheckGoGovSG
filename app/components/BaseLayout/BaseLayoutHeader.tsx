@@ -15,7 +15,7 @@ export const BaseLayoutHeader: React.FC = () => {
       px={{ base: "1.5rem", md: "5.5rem", lg: "9.25rem" }}
       py={{ base: "0.25rem", md: "2.5rem" }}
     >
-      <Link title="CheckGoGovSG logo" p="4" href="/">
+      <Link title="CheckGoGovSG logo" p="4" href="https://go.gov.sg">
         <Img
           src={isSmallIcon ? GoLogoMini : GoLogo}
           alt="Go Logo"
